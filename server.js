@@ -1,15 +1,8 @@
-const express = require("express");
-const morgan = require("morgan");
 require("dotenv").config();
-const app = express();
-
-const port = process.env.PORT || 3000;
-
-app.get("*", (req, res) => {
-	res.sendFile(`index.html`, { root: www });
-});
-
-// middleware
-app.use(morgan("dev"));
-// server
-app.listen(port, () => console.log(`listening on http://localhost:${port}`));
+const http = require("http");
+require("./config/dbConnect");
+const app = require("./app/app");
+const PORT = process.env.PORT || 3000;
+//server
+const server = http.createServer(app);
+server.listen(PORT, console.log(`Server is running on port ${PORT}`));
